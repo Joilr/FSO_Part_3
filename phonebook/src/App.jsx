@@ -55,8 +55,17 @@ const App = () => {
       }, 5000)
     }
 
+        //Person already exist in list (TEMP CODE)
+        else if (persons.some((person) => person.name === newPerson.name)) {
+          setMsgColor('green')
+          setMessage(`${newPerson.name} is already added to phonebook`)
+          setTimeout(() => {
+            setMessage('')
+          }, 5000)
+        }
+
     //Changing phonenumber
-    else if (persons.some((person) => person.name === newPerson.name && person.number !== newPerson.number)) {
+/*     else if (persons.some((person) => person.name === newPerson.name && person.number !== newPerson.number)) {
       const confirmUpdate = window.confirm(`${newPerson.name} is already added to phonebook, replace the old number with a new one?`);
 
       if (confirmUpdate) {
@@ -85,7 +94,7 @@ const App = () => {
           }, 5000)
         })
       }
-    }
+    } */
 
     //Adding new person
     else {
