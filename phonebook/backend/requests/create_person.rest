@@ -2,6 +2,6 @@ POST https://backendfsoproject.fly.dev/api/persons/
 Content-Type: application/json
 
 {
-    "name": "Joilr", 
+    "name": "Joilr2", 
     "number": "040-0001"
 }
