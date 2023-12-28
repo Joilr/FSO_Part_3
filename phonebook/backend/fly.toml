@@ -1,12 +1,15 @@
-# fly.toml app configuration file generated for thephonebookfso on 2023-12-27T23:51:11+01:00
+# fly.toml app configuration file generated for backendfsoproject on 2023-12-28T16:41:14+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "thephonebookfso"
+app = "backendfsoproject"
 primary_region = "ams"
 
 [build]
+
+[env]
+  PORT = "3000"
 
 [http_service]
   internal_port = 3000
