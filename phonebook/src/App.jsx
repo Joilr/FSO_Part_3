@@ -14,7 +14,7 @@ const App = () => {
   const [message, setMessage] = useState('');
   const [msgColor, setMsgColor] = useState(''); 
 
-  //Fetch data from the back-end (server)
+  //Fetch data from the database
   useEffect(() => {
     personService
       .getAll()
@@ -26,14 +26,13 @@ const App = () => {
   //Delete functionality
   const deletePerson = ( id ) => {
 
-    const deletedPerson = id
-
     personService
     .removal(id)
     .then(() => {
+      const personName = persons.find(p => p.id === id)?.name;
       setPersons(persons.filter(person => person.id !== id));
       setMsgColor('red')
-      setMessage(`${deletedPerson} has been removed from the phonebook `)
+      setMessage(`${personName} has been removed from the phonebook `)
       setTimeout(() => {
         setMessage('')
       }, 5000)
@@ -55,31 +54,26 @@ const App = () => {
       }, 5000)
     }
 
-        //Person already exist in list (TEMP CODE)
-        else if (persons.some((person) => person.name === newPerson.name)) {
-          setMsgColor('green')
-          setMessage(`${newPerson.name} is already added to phonebook`)
-          setTimeout(() => {
-            setMessage('')
-          }, 5000)
-        }
-
     //Changing phonenumber
-/*     else if (persons.some((person) => person.name === newPerson.name && person.number !== newPerson.number)) {
+    else if (persons.some((person) => person.name === newPerson.name && person.number !== newPerson.number)) {
       const confirmUpdate = window.confirm(`${newPerson.name} is already added to phonebook, replace the old number with a new one?`);
 
       if (confirmUpdate) {
 
+         const existingPerson = persons.find(person => person.name === newPerson.name);
+         console.log(existingPerson.id)
+
         const personObject = {
-          name: newPerson.name,
+          name: existingPerson.name,
           number: newPerson.number,
-          id: newPerson.name
+          id: existingPerson.id
         }
 
         personService
         .update(personObject)
         .then(returnedPerson => {
-          setPersons(persons.map(person => person.id !== personObject.id ? person : returnedPerson));
+          console.log("returnedperson:" + returnedPerson.number)
+          setPersons(persons.map(person => person.id !== returnedPerson.id ? person : returnedPerson));
           setMsgColor('green')
           setMessage(`${returnedPerson.name} has been updated with new number ${returnedPerson.number} `)
           setTimeout(() => {
@@ -94,7 +88,7 @@ const App = () => {
           }, 5000)
         })
       }
-    } */
+    }
 
     //Adding new person
     else {
