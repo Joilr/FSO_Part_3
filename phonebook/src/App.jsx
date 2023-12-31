@@ -80,13 +80,16 @@ const App = () => {
             setMessage('')
           }, 5000)
         })
-        .catch(() => {
+        .catch(error => {
+          // Error handling logic
+          console.error('Error:', error.response.data);
+          // Display an error message to the user, etc.
           setMsgColor('red')
-          setMessage(`Information of ${newPerson.name} has already been removed from server `)
+          setMessage(error.response.data.error)
           setTimeout(() => {
             setMessage('')
           }, 5000)
-        })
+        });
       }
     }
 
@@ -110,6 +113,16 @@ const App = () => {
         setMessage('')
       }, 5000)
     })
+    .catch(error => {
+      // Error handling logic
+      console.error('Error:', error.response.data);
+      // Display an error message to the user, etc.
+      setMsgColor('red')
+      setMessage(error.response.data.error)
+      setTimeout(() => {
+        setMessage('')
+      }, 5000)
+    });
     }
   };
 
